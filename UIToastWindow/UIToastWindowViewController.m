@@ -2,13 +2,20 @@
 //  UIToastWindowViewController.m
 //  UIToastWindow
 //
-//  Created by Brian Michel on 7/30/11.
+//  Created by Brian Michel on 7/28/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import "UIToastWindowViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIToastWindow.h"
+
 
 @implementation UIToastWindowViewController
+
+@synthesize textView;
+@synthesize testButton;
+@synthesize segControl;
 
 - (void)didReceiveMemoryWarning
 {
@@ -19,9 +26,26 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+{    
+  [super viewDidLoad];
+}
+
+- (IBAction)makeToast:(id)sender {
+  [self.textView resignFirstResponder];
+  UIToastWindowPosition position;
+  switch (self.segControl.selectedSegmentIndex) {
+    case 0:
+      position = UIToastWindowPositionTop;
+      break;
+    case 1:
+      position = UIToastWindowPositionBottom;
+      break;
+    default:
+      break;
+  }
+  
+  UIToastWindow *toast = [[UIToastWindow alloc] initWithMessage:self.textView.text duration:0.5 position:position];
+  [toast show];
 }
 
 - (void)viewDidUnload

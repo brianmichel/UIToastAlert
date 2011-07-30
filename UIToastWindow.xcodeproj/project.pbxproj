@@ -13,9 +13,11 @@
 		721B573013E3D045004E8234 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 721B572E13E3D045004E8234 /* InfoPlist.strings */; };
 		721B573213E3D045004E8234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573113E3D045004E8234 /* main.m */; };
 		721B573613E3D045004E8234 /* UIToastWindowAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573513E3D045004E8234 /* UIToastWindowAppDelegate.m */; };
-		721B573913E3D045004E8234 /* UIToastWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573813E3D045004E8234 /* UIToastWindowViewController.m */; };
-		721B573C13E3D045004E8234 /* UIToastWindowViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B573A13E3D045004E8234 /* UIToastWindowViewController_iPhone.xib */; };
-		721B573F13E3D045004E8234 /* UIToastWindowViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B573D13E3D045004E8234 /* UIToastWindowViewController_iPad.xib */; };
+		721B574B13E3D088004E8234 /* UIToastWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574613E3D088004E8234 /* UIToastWindow.m */; };
+		721B574C13E3D088004E8234 /* UIToastWindowViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */; };
+		721B574D13E3D088004E8234 /* UIToastWindowViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */; };
+		721B574E13E3D088004E8234 /* UIToastWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574A13E3D088004E8234 /* UIToastWindowViewController.m */; };
+		721B575013E3D26E004E8234 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721B574F13E3D26E004E8234 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,16 +25,19 @@
 		721B572513E3D045004E8234 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		721B572713E3D045004E8234 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		721B572913E3D045004E8234 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		721B572D13E3D045004E8234 /* UIToastWindow-Info.plist */ = {isa = PBXFileReference; path = "UIToastWindow-Info.plist"; sourceTree = "<group>"; };
+		721B572D13E3D045004E8234 /* UIToastWindow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UIToastWindow-Info.plist"; sourceTree = "<group>"; };
 		721B572F13E3D045004E8234 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		721B573113E3D045004E8234 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		721B573313E3D045004E8234 /* UIToastWindow-Prefix.pch */ = {isa = PBXFileReference; path = "UIToastWindow-Prefix.pch"; sourceTree = "<group>"; };
-		721B573413E3D045004E8234 /* UIToastWindowAppDelegate.h */ = {isa = PBXFileReference; path = UIToastWindowAppDelegate.h; sourceTree = "<group>"; };
+		721B573313E3D045004E8234 /* UIToastWindow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIToastWindow-Prefix.pch"; sourceTree = "<group>"; };
+		721B573413E3D045004E8234 /* UIToastWindowAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIToastWindowAppDelegate.h; sourceTree = "<group>"; };
 		721B573513E3D045004E8234 /* UIToastWindowAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIToastWindowAppDelegate.m; sourceTree = "<group>"; };
-		721B573713E3D045004E8234 /* UIToastWindowViewController.h */ = {isa = PBXFileReference; path = UIToastWindowViewController.h; sourceTree = "<group>"; };
-		721B573813E3D045004E8234 /* UIToastWindowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIToastWindowViewController.m; sourceTree = "<group>"; };
-		721B573B13E3D045004E8234 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/UIToastWindowViewController_iPhone.xib; sourceTree = "<group>"; };
-		721B573E13E3D045004E8234 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/UIToastWindowViewController_iPad.xib; sourceTree = "<group>"; };
+		721B574513E3D088004E8234 /* UIToastWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToastWindow.h; sourceTree = "<group>"; };
+		721B574613E3D088004E8234 /* UIToastWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToastWindow.m; sourceTree = "<group>"; };
+		721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIToastWindowViewController_iPad.xib; sourceTree = "<group>"; };
+		721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIToastWindowViewController_iPhone.xib; sourceTree = "<group>"; };
+		721B574913E3D088004E8234 /* UIToastWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToastWindowViewController.h; sourceTree = "<group>"; };
+		721B574A13E3D088004E8234 /* UIToastWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToastWindowViewController.m; sourceTree = "<group>"; };
+		721B574F13E3D26E004E8234 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				721B575013E3D26E004E8234 /* QuartzCore.framework in Frameworks */,
 				721B572613E3D045004E8234 /* UIKit.framework in Frameworks */,
 				721B572813E3D045004E8234 /* Foundation.framework in Frameworks */,
 				721B572A13E3D045004E8234 /* CoreGraphics.framework in Frameworks */,
@@ -52,6 +58,7 @@
 		721B571613E3D045004E8234 = {
 			isa = PBXGroup;
 			children = (
+				721B574F13E3D26E004E8234 /* QuartzCore.framework */,
 				721B572B13E3D045004E8234 /* UIToastWindow */,
 				721B572413E3D045004E8234 /* Frameworks */,
 				721B572213E3D045004E8234 /* Products */,
@@ -79,12 +86,14 @@
 		721B572B13E3D045004E8234 /* UIToastWindow */ = {
 			isa = PBXGroup;
 			children = (
+				721B574513E3D088004E8234 /* UIToastWindow.h */,
+				721B574613E3D088004E8234 /* UIToastWindow.m */,
+				721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */,
+				721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */,
+				721B574913E3D088004E8234 /* UIToastWindowViewController.h */,
+				721B574A13E3D088004E8234 /* UIToastWindowViewController.m */,
 				721B573413E3D045004E8234 /* UIToastWindowAppDelegate.h */,
 				721B573513E3D045004E8234 /* UIToastWindowAppDelegate.m */,
-				721B573713E3D045004E8234 /* UIToastWindowViewController.h */,
-				721B573813E3D045004E8234 /* UIToastWindowViewController.m */,
-				721B573A13E3D045004E8234 /* UIToastWindowViewController_iPhone.xib */,
-				721B573D13E3D045004E8234 /* UIToastWindowViewController_iPad.xib */,
 				721B572C13E3D045004E8234 /* Supporting Files */,
 			);
 			path = UIToastWindow;
@@ -126,6 +135,9 @@
 /* Begin PBXProject section */
 		721B571813E3D045004E8234 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 721B571B13E3D045004E8234 /* Build configuration list for PBXProject "UIToastWindow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -149,8 +161,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				721B573013E3D045004E8234 /* InfoPlist.strings in Resources */,
-				721B573C13E3D045004E8234 /* UIToastWindowViewController_iPhone.xib in Resources */,
-				721B573F13E3D045004E8234 /* UIToastWindowViewController_iPad.xib in Resources */,
+				721B574C13E3D088004E8234 /* UIToastWindowViewController_iPad.xib in Resources */,
+				721B574D13E3D088004E8234 /* UIToastWindowViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +175,8 @@
 			files = (
 				721B573213E3D045004E8234 /* main.m in Sources */,
 				721B573613E3D045004E8234 /* UIToastWindowAppDelegate.m in Sources */,
-				721B573913E3D045004E8234 /* UIToastWindowViewController.m in Sources */,
+				721B574B13E3D088004E8234 /* UIToastWindow.m in Sources */,
+				721B574E13E3D088004E8234 /* UIToastWindowViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,22 +189,6 @@
 				721B572F13E3D045004E8234 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		721B573A13E3D045004E8234 /* UIToastWindowViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				721B573B13E3D045004E8234 /* en */,
-			);
-			name = UIToastWindowViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		721B573D13E3D045004E8234 /* UIToastWindowViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				721B573E13E3D045004E8234 /* en */,
-			);
-			name = UIToastWindowViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
