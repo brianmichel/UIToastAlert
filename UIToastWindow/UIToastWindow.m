@@ -3,17 +3,31 @@
 //  UIToastWindow
 //
 //  Created by Brian Michel on 7/28/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Foureyes.me. All rights reserved.
 //
 
 #import "UIToastWindow.h"
 #import <QuartzCore/QuartzCore.h>
+
+#define kUIToastWindowLongDuration 2.0
+#define kUIToastWindowShortDuration 0.5
 
 #define kAlertFadePixelAmount 30
 #define kAlertFadeDuration 0.3f
 #define kAlertDefaultPadding 10.0f
 #define kAlertDefaultWidth UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 200.0f : 400.0f
 #define kAlertDefaultBaseColor [UIColor colorWithHue:(231.0/360.0) saturation:0.90 brightness:0.25 alpha:1.0]
+
+CGRect get_screen_rect() {
+  CGRect screenRect;
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    screenRect = [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ? CGRectMake(0, 0, 768, 1024) : CGRectMake(0, 0, 1024, 768);
+  } else {
+    screenRect = [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ? CGRectMake(0, 0, 320, 480) : CGRectMake(0, 0, 480, 320);
+  }
+  return screenRect;
+}
+
 
 @interface UIToastWindow (Private)
 - (void)dismiss;
@@ -26,6 +40,7 @@
 @synthesize _messageLabel;
 @synthesize _dismissTimer;
 
+#pragma mark - Setup
 + (Class)layerClass
 {
 	return [CAGradientLayer class];
@@ -54,7 +69,7 @@
     CAGradientLayer *gradientLayer = (CAGradientLayer *)self.layer;
     gradientLayer.colors =
 		[NSArray arrayWithObjects:
-     (__bridge id)[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0].CGColor,
+     (__bridge id)[UIColor whiteColor].CGColor,
      (__bridge id)kAlertDefaultBaseColor.CGColor,
      nil];
     
@@ -69,13 +84,19 @@
     gradientLayer.shadowOffset = CGSizeMake(0, 0);
     gradientLayer.masksToBounds = NO;
 
+    self.autoresizingMask = UIViewAutoresizingNone;
+    
     [self layoutSubviews];
   }
   return self;
 }
 
+#pragma mark - Layout
 - (void)layoutSubviews {
   [super layoutSubviews];
+  
+  CGRect screenRect = get_screen_rect();
+  
   CGSize contraintRect = CGSizeMake(kAlertDefaultWidth - (kAlertDefaultPadding * 2), CGFLOAT_MAX);
   
   CGSize sizeOfLabel = [self._messageLabel.text sizeWithFont:[UIFont systemFontOfSize:[UIFont labelFontSize]] constrainedToSize:contraintRect lineBreakMode:UILineBreakModeWordWrap];
@@ -87,12 +108,13 @@
   self.frame = CGRectMake(0, 0, sizeOfWindow.width, sizeOfWindow.height);
   switch (self._position) {
     case UIToastWindowPositionTop:
-      self.frame = CGRectMake(round([UIScreen mainScreen].bounds.size.width/2 - self.frame.size.width/2), [UIScreen mainScreen].bounds.origin.y + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
+      self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.origin.y + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
       break;
     case UIToastWindowPositionBottom:
-      self.frame = CGRectMake(round([UIScreen mainScreen].bounds.size.width/2 - self.frame.size.width/2), [UIScreen mainScreen].bounds.origin.y + [UIScreen mainScreen].bounds.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
+      self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.origin.y + screenRect.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
       break;
     default:
+      [NSException raise:@"Invalid UIToastWindowPosition Value" format:@"Value for UIToastWindowPosition %i is invalid.", self._position];
       break;
   }
   
@@ -100,20 +122,23 @@
   self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.layer.cornerRadius].CGPath;
 }
 
+#pragma mark - Actions
 - (void)show {
+  CGRect screenRect = get_screen_rect();
   [self makeKeyAndVisible];
   
   [UIView animateWithDuration:kAlertFadeDuration animations:^(void){
     switch (self._position) {
       case UIToastWindowPositionTop:
-        self.frame = CGRectMake(round([UIScreen mainScreen].bounds.size.width/2 - self.frame.size.width/2), self.frame.origin.y + self.frame.size.height + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
+        self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), self.frame.origin.y + self.frame.size.height + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 1;
         break;
       case UIToastWindowPositionBottom:
-        self.frame = CGRectMake(round([UIScreen mainScreen].bounds.size.width/2 - self.frame.size.width/2), [UIScreen mainScreen].bounds.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
+        self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 1;
         break;
       default:
+        [NSException raise:@"Invalid UIToastWindowPosition Value" format:@"Value for UIToastWindowPosition %i is invalid.", self._position];
         break;
     }
   } completion:^(BOOL finished) {
@@ -135,13 +160,25 @@
         self.alpha = 0;
         break;
       default:
+        [NSException raise:@"Invalid UIToastWindowPosition Value" format:@"Value for UIToastWindowPosition %i is invalid.", self._position];
         break;
     }
   } completion:^(BOOL finished) {
+    //TODO Could a [self release] actually go here for non ARC Code?
     [self removeFromSuperview];
   }];
 }
 
+#pragma mark - Convenience Methods
++ (UIToastWindow *)shortToastForMessage:(NSString *)message atPosition:(UIToastWindowPosition)position {
+  return [[UIToastWindow alloc] initWithMessage:message duration:kUIToastWindowShortDuration position:position];
+}
+
++ (UIToastWindow *)longToastForMessage:(NSString *)message atPosition:(UIToastWindowPosition)position {
+  return [[UIToastWindow alloc] initWithMessage:message duration:kUIToastWindowLongDuration position:position];
+}
+
+#pragma mark - Memory Management
 - (void)dealloc {
   [_dismissTimer invalidate];
 }

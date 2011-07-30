@@ -3,7 +3,7 @@
 //  UIToastWindow
 //
 //  Created by Brian Michel on 7/28/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Foureyes.me. All rights reserved.
 //
 
 #import "UIToastWindowViewController.h"
@@ -77,12 +77,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-      return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-  } else {
-      return YES;
-  }
+  return YES;
 }
 
 @end

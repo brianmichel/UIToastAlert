@@ -86,10 +86,8 @@
 		721B572B13E3D045004E8234 /* UIToastWindow */ = {
 			isa = PBXGroup;
 			children = (
-				721B574513E3D088004E8234 /* UIToastWindow.h */,
-				721B574613E3D088004E8234 /* UIToastWindow.m */,
-				721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */,
-				721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */,
+				721B575213E3D42A004E8234 /* Resources */,
+				721B575113E3D41B004E8234 /* Toast Window */,
 				721B574913E3D088004E8234 /* UIToastWindowViewController.h */,
 				721B574A13E3D088004E8234 /* UIToastWindowViewController.m */,
 				721B573413E3D045004E8234 /* UIToastWindowAppDelegate.h */,
@@ -108,6 +106,24 @@
 				721B573313E3D045004E8234 /* UIToastWindow-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		721B575113E3D41B004E8234 /* Toast Window */ = {
+			isa = PBXGroup;
+			children = (
+				721B574513E3D088004E8234 /* UIToastWindow.h */,
+				721B574613E3D088004E8234 /* UIToastWindow.m */,
+			);
+			name = "Toast Window";
+			sourceTree = "<group>";
+		};
+		721B575213E3D42A004E8234 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */,
+				721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

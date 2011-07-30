@@ -3,7 +3,7 @@
 //  UIToastWindow
 //
 //  Created by Brian Michel on 7/30/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Foureyes.me. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
