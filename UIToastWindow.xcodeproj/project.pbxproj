@@ -11,12 +11,12 @@
 		721B572813E3D045004E8234 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721B572713E3D045004E8234 /* Foundation.framework */; };
 		721B572A13E3D045004E8234 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721B572913E3D045004E8234 /* CoreGraphics.framework */; };
 		721B573013E3D045004E8234 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 721B572E13E3D045004E8234 /* InfoPlist.strings */; };
-		721B573213E3D045004E8234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573113E3D045004E8234 /* main.m */; };
-		721B573613E3D045004E8234 /* UIToastWindowAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573513E3D045004E8234 /* UIToastWindowAppDelegate.m */; };
-		721B574B13E3D088004E8234 /* UIToastAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574613E3D088004E8234 /* UIToastAlert.m */; };
+		721B573213E3D045004E8234 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573113E3D045004E8234 /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		721B573613E3D045004E8234 /* UIToastWindowAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B573513E3D045004E8234 /* UIToastWindowAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		721B574B13E3D088004E8234 /* UIToastAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574613E3D088004E8234 /* UIToastAlert.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		721B574C13E3D088004E8234 /* UIToastWindowViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B574713E3D088004E8234 /* UIToastWindowViewController_iPad.xib */; };
 		721B574D13E3D088004E8234 /* UIToastWindowViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 721B574813E3D088004E8234 /* UIToastWindowViewController_iPhone.xib */; };
-		721B574E13E3D088004E8234 /* UIToastWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574A13E3D088004E8234 /* UIToastWindowViewController.m */; };
+		721B574E13E3D088004E8234 /* UIToastWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 721B574A13E3D088004E8234 /* UIToastWindowViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		721B575013E3D26E004E8234 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721B574F13E3D26E004E8234 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +58,6 @@
 		721B571613E3D045004E8234 = {
 			isa = PBXGroup;
 			children = (
-				721B574F13E3D26E004E8234 /* QuartzCore.framework */,
 				721B572B13E3D045004E8234 /* UIToastWindow */,
 				721B572413E3D045004E8234 /* Frameworks */,
 				721B572213E3D045004E8234 /* Products */,
@@ -76,6 +75,7 @@
 		721B572413E3D045004E8234 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				721B574F13E3D26E004E8234 /* QuartzCore.framework */,
 				721B572513E3D045004E8234 /* UIKit.framework */,
 				721B572713E3D045004E8234 /* Foundation.framework */,
 				721B572913E3D045004E8234 /* CoreGraphics.framework */,
@@ -263,6 +263,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UIToastWindow/UIToastWindow-Prefix.pch";
 				INFOPLIST_FILE = "UIToastWindow/UIToastWindow-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -274,6 +275,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UIToastWindow/UIToastWindow-Prefix.pch";
 				INFOPLIST_FILE = "UIToastWindow/UIToastWindow-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

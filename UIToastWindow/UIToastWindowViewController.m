@@ -80,4 +80,10 @@
   return YES;
 }
 
+- (void)dealloc {
+  [textView release];
+  [segControl release];
+  [testButton release];
+}
+
 @end

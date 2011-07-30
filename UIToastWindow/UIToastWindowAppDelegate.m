@@ -17,12 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   // Override point for customization after application launch.
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    self.viewController = [[UIToastWindowViewController alloc] initWithNibName:@"UIToastWindowViewController_iPhone" bundle:nil]; 
+    self.viewController = [[[UIToastWindowViewController alloc] initWithNibName:@"UIToastWindowViewController_iPhone" bundle:nil] autorelease]; 
   } else {
-    self.viewController = [[UIToastWindowViewController alloc] initWithNibName:@"UIToastWindowViewController_iPad" bundle:nil]; 
+    self.viewController = [[[UIToastWindowViewController alloc] initWithNibName:@"UIToastWindowViewController_iPad" bundle:nil] autorelease]; 
   }
   self.window.rootViewController = self.viewController;
   [self.window makeKeyAndVisible];

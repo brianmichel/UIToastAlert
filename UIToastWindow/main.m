@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-  @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([UIToastWindowAppDelegate class]));
-  }
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  return UIApplicationMain(argc, argv, nil, NSStringFromClass([UIToastWindowAppDelegate class]));
+  [pool drain];
 }
