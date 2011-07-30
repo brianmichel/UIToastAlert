@@ -14,9 +14,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "721B572013E3D045004E8234"
-               BuildableName = "UIToastWindow.app"
-               BlueprintName = "UIToastWindow"
-               ReferencedContainer = "container:UIToastWindow.xcodeproj">
+               BuildableName = "UIToastView.app"
+               BlueprintName = "UIToastView"
+               ReferencedContainer = "container:UIToastView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -41,9 +41,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "721B572013E3D045004E8234"
-            BuildableName = "UIToastWindow.app"
-            BlueprintName = "UIToastWindow"
-            ReferencedContainer = "container:UIToastWindow.xcodeproj">
+            BuildableName = "UIToastView.app"
+            BlueprintName = "UIToastView"
+            ReferencedContainer = "container:UIToastView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -59,9 +59,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "721B572013E3D045004E8234"
-            BuildableName = "UIToastWindow.app"
-            BlueprintName = "UIToastWindow"
-            ReferencedContainer = "container:UIToastWindow.xcodeproj">
+            BuildableName = "UIToastView.app"
+            BlueprintName = "UIToastView"
+            ReferencedContainer = "container:UIToastView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
