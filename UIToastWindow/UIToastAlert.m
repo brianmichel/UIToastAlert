@@ -55,7 +55,7 @@ CGRect get_screen_rect() {
   if (self) {
     
     //Configure the message label
-    self._messageLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    self._messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self._messageLabel.text = message;
     self._messageLabel.backgroundColor = [UIColor clearColor];
     self._messageLabel.textColor = [UIColor whiteColor];
@@ -215,16 +215,12 @@ CGRect get_screen_rect() {
 }
 
 + (UIToastAlert *)toastForMessage:(NSString *)message atPosition:(UIToastAlertPosition)position withDuration:(NSTimeInterval)duration {
-  return [[[UIToastAlert alloc] initWithMessage:message showDuration:duration fadeDuration:kAlertFadeDuration position:position tintColor:nil lightText:NO] autorelease];
+  return [[UIToastAlert alloc] initWithMessage:message showDuration:duration fadeDuration:kAlertFadeDuration position:position tintColor:nil lightText:NO];
 }
 
 #pragma mark - Memory Management
 - (void)dealloc {
   [_dismissTimer invalidate];
-  [_dismissTimer release];
-  [_messageLabel release];
-  [_tintColor release];
-  [super dealloc];
 }
 
 
