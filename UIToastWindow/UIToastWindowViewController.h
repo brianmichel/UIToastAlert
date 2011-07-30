@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIToastWindowViewController : UIViewController {
+@interface UIToastWindowViewController : UIViewController <UITextViewDelegate> {
   IBOutlet UITextView *textView;
   IBOutlet UIButton *testButton;
   IBOutlet UISegmentedControl *segControl;

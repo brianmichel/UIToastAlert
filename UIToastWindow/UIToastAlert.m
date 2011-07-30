@@ -1,12 +1,12 @@
 //
-//  UIToastWindow.m
-//  UIToastWindow
+//  UIToastAlert.m
+//  UIToastAlert
 //
 //  Created by Brian Michel on 7/28/11.
 //  Copyright 2011 Foureyes.me. All rights reserved.
 //
 
-#import "UIToastWindow.h"
+#import "UIToastAlert.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kUIToastWindowLongDuration 2.0
@@ -29,12 +29,12 @@ CGRect get_screen_rect() {
 }
 
 
-@interface UIToastWindow (Private)
+@interface UIToastAlert (Private)
 - (void)setup;
 - (void)dismiss;
 @end
 
-@implementation UIToastWindow
+@implementation UIToastAlert
 
 @synthesize _showDuration;
 @synthesize _animationDuration;
@@ -49,10 +49,12 @@ CGRect get_screen_rect() {
 {
 	return [CAGradientLayer class];
 }
-  
-- (id)initWithMessage:(NSString *)message duration:(NSTimeInterval)duration position:(UIToastWindowPosition)position {
+
+- (id)initWithMessage:(NSString *)message showDuration:(NSTimeInterval)showDuration fadeDuration:(NSTimeInterval)fadeDuration position:(UIToastAlertPosition)position tintColor:(UIColor *)tintColor lightText:(BOOL)lightText {
   self = [super init];
   if (self) {
+    
+    //Configure the message label
     self._messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self._messageLabel.text = message;
     self._messageLabel.backgroundColor = [UIColor clearColor];
@@ -66,9 +68,13 @@ CGRect get_screen_rect() {
     
     self.alpha = 0;
     
-    self._showDuration = duration;
-    _position = position;
+    //Configure the options
+    self._showDuration = showDuration;
+    self._animationDuration = fadeDuration;
+    self._lightText = lightText;
+    self._position = position;
     
+    //Configure the gradient layer
     CAGradientLayer *gradientLayer = (CAGradientLayer *)self.layer;
     gradientLayer.colors =
 		[NSArray arrayWithObjects:
@@ -77,7 +83,7 @@ CGRect get_screen_rect() {
      nil];
     
     gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.00], [NSNumber numberWithFloat:0.20], nil];
-
+    
     gradientLayer.borderColor = [[UIColor whiteColor] CGColor];
     gradientLayer.borderWidth = 2.0f;
     gradientLayer.cornerRadius = 7.0f;
@@ -86,7 +92,7 @@ CGRect get_screen_rect() {
     gradientLayer.shadowOpacity = 2.0f;
     gradientLayer.shadowOffset = CGSizeMake(0, 0);
     gradientLayer.masksToBounds = NO;
-
+    
     self._messageLabel.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
@@ -129,10 +135,10 @@ CGRect get_screen_rect() {
   
   self.frame = CGRectMake(0, 0, sizeOfWindow.width, sizeOfWindow.height);
   switch (self._position) {
-    case UIToastWindowPositionTop:
+    case UIToastAlertPositionTop:
       self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.origin.y + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
       break;
-    case UIToastWindowPositionBottom:
+    case UIToastAlertPositionBottom:
       self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.origin.y + screenRect.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
       break;
     default:
@@ -154,11 +160,11 @@ CGRect get_screen_rect() {
 
   [UIView animateWithDuration:self._animationDuration animations:^(void){
     switch (self._position) {
-      case UIToastWindowPositionTop:
+      case UIToastAlertPositionTop:
         self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), self.frame.origin.y + self.frame.size.height + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 1;
         break;
-      case UIToastWindowPositionBottom:
+      case UIToastAlertPositionBottom:
         self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), screenRect.size.height - self.frame.size.height - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 1;
         break;
@@ -176,11 +182,11 @@ CGRect get_screen_rect() {
   [self._dismissTimer invalidate];
   [UIView animateWithDuration:self._animationDuration animations:^(void){
     switch (self._position) {
-      case UIToastWindowPositionTop:
+      case UIToastAlertPositionTop:
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 0;
         break;
-      case UIToastWindowPositionBottom:
+      case UIToastAlertPositionBottom:
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y - kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
         self.alpha = 0;
         break;
@@ -195,12 +201,20 @@ CGRect get_screen_rect() {
 }
 
 #pragma mark - Convenience Methods
-+ (UIToastWindow *)shortToastForMessage:(NSString *)message atPosition:(UIToastWindowPosition)position {
-  return [[UIToastWindow alloc] initWithMessage:message duration:kUIToastWindowShortDuration position:position];
++ (UIToastAlert *)shortToastForMessage:(NSString *)message atPosition:(UIToastAlertPosition)position {
+  return [UIToastAlert toastForMessage:message atPosition:position withDuration:kUIToastWindowShortDuration];
 }
 
-+ (UIToastWindow *)longToastForMessage:(NSString *)message atPosition:(UIToastWindowPosition)position {
-  return [[UIToastWindow alloc] initWithMessage:message duration:kUIToastWindowLongDuration position:position];
++ (UIToastAlert *)longToastForMessage:(NSString *)message atPosition:(UIToastAlertPosition)position {
+  return [UIToastAlert toastForMessage:message atPosition:position withDuration:kUIToastWindowLongDuration];
+}
+
++ (UIToastAlert *)toastForMessage:(NSString *)message {
+  return [[UIToastAlert alloc] initWithMessage:message showDuration:kUIToastWindowShortDuration fadeDuration:kAlertFadeDuration position:UIToastAlertPositionBottom tintColor:nil lightText:NO];
+}
+
++ (UIToastAlert *)toastForMessage:(NSString *)message atPosition:(UIToastAlertPosition)position withDuration:(NSTimeInterval)duration {
+  return [[UIToastAlert alloc] initWithMessage:message showDuration:duration fadeDuration:kAlertFadeDuration position:position tintColor:nil lightText:NO];
 }
 
 #pragma mark - Memory Management

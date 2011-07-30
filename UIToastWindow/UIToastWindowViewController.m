@@ -1,6 +1,6 @@
 //
 //  UIToastWindowViewController.m
-//  UIToastWindow
+//  UIToastAlert
 //
 //  Created by Brian Michel on 7/28/11.
 //  Copyright 2011 Foureyes.me. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "UIToastWindowViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIToastWindow.h"
+#import "UIToastAlert.h"
 
 
 @implementation UIToastWindowViewController
@@ -32,23 +32,19 @@
 
 - (IBAction)makeToast:(id)sender {
   [self.textView resignFirstResponder];
-  UIToastWindowPosition position;
+  UIToastAlertPosition position;
   switch (self.segControl.selectedSegmentIndex) {
     case 0:
-      position = UIToastWindowPositionTop;
+      position = UIToastAlertPositionTop;
       break;
     case 1:
-      position = UIToastWindowPositionBottom;
+      position = UIToastAlertPositionBottom;
       break;
     default:
       break;
   }
-  
-  UIToastWindow *toast = [[UIToastWindow alloc] initWithMessage:self.textView.text duration:0.5 position:position];
-//  int random = arc4random() % 360;
-//  
-//  toast._tintColor = [UIColor colorWithHue:random * 0.01  saturation:1.0 brightness:1.0 alpha:1.0];
-//  toast._lightText = random < 200 ? YES : NO;
+
+  UIToastAlert *toast = [UIToastAlert shortToastForMessage:self.textView.text atPosition:position];
   [toast show];
 }
 
