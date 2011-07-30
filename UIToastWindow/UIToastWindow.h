@@ -13,19 +13,26 @@ typedef enum UIToastWindowPosition {
   UIToastWindowPositionBottom = 1 << 1
 } UIToastWindowPosition;
 
-@interface UIToastWindow : UIWindow {
+@interface UIToastWindow : UIView {
   NSTimeInterval _animationDuration;
   NSTimeInterval _showDuration;
   
   UILabel *_messageLabel;
+  NSTimer *_dismissTimer;
+  
+  UIColor *_tintColor;
+  
+  BOOL _lightText;
   
   UIToastWindowPosition _position;
-  NSTimer *_dismissTimer;
 }
 
-@property (nonatomic, assign) NSTimeInterval _duration;
+@property (nonatomic, assign) NSTimeInterval _showDuration;
+@property (nonatomic, assign) NSTimeInterval _animationDuration;
 @property (nonatomic, retain) NSTimer *_dismissTimer;
 @property (nonatomic, retain) UILabel *_messageLabel;
+@property (nonatomic, retain) UIColor *_tintColor;
+@property (nonatomic, assign) BOOL _lightText;
 @property (nonatomic, readonly) UIToastWindowPosition _position;
 
 + (UIToastWindow *)shortToastForMessage:(NSString *)message atPosition:(UIToastWindowPosition)position;

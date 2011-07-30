@@ -19,26 +19,30 @@
 #define kAlertDefaultBaseColor [UIColor colorWithHue:(231.0/360.0) saturation:0.90 brightness:0.25 alpha:1.0]
 
 CGRect get_screen_rect() {
-  CGRect screenRect;
+  CGRect screenRect; 
   if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-    screenRect = [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ? CGRectMake(0, 0, 768, 1024) : CGRectMake(0, 0, 1024, 768);
+    screenRect =  UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? CGRectMake(0, 0, 768, 1024) : CGRectMake(0, 0, 1024, 768);
   } else {
-    screenRect = [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait ? CGRectMake(0, 0, 320, 480) : CGRectMake(0, 0, 480, 320);
+    screenRect = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? CGRectMake(0, 0, 320, 480) : CGRectMake(0, 0, 480, 320);
   }
   return screenRect;
 }
 
 
 @interface UIToastWindow (Private)
+- (void)setup;
 - (void)dismiss;
 @end
 
 @implementation UIToastWindow
 
-@synthesize _duration;
+@synthesize _showDuration;
+@synthesize _animationDuration;
 @synthesize _position;
 @synthesize _messageLabel;
 @synthesize _dismissTimer;
+@synthesize _tintColor;
+@synthesize _lightText;
 
 #pragma mark - Setup
 + (Class)layerClass
@@ -55,25 +59,24 @@ CGRect get_screen_rect() {
     self._messageLabel.textColor = [UIColor whiteColor];
     self._messageLabel.textAlignment = UITextAlignmentCenter;
     self._messageLabel.shadowOffset = CGSizeMake(0, -1);
-    self._messageLabel.shadowColor = [UIColor darkGrayColor];
+    self._messageLabel.shadowColor = [UIColor blackColor];
     self._messageLabel.numberOfLines = 0;
     [self._messageLabel sizeToFit];
     [self addSubview:self._messageLabel];
     
-    self.windowLevel = UIWindowLevelAlert;
     self.alpha = 0;
     
-    self._duration = duration;
+    self._showDuration = duration;
     _position = position;
     
     CAGradientLayer *gradientLayer = (CAGradientLayer *)self.layer;
     gradientLayer.colors =
 		[NSArray arrayWithObjects:
-     (__bridge id)[UIColor whiteColor].CGColor,
+     (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.80].CGColor,
      (__bridge id)kAlertDefaultBaseColor.CGColor,
      nil];
     
-    gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.02], [NSNumber numberWithFloat:0.20], nil];
+    gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.00], [NSNumber numberWithFloat:0.20], nil];
 
     gradientLayer.borderColor = [[UIColor whiteColor] CGColor];
     gradientLayer.borderWidth = 2.0f;
@@ -84,24 +87,43 @@ CGRect get_screen_rect() {
     gradientLayer.shadowOffset = CGSizeMake(0, 0);
     gradientLayer.masksToBounds = NO;
 
-    self.autoresizingMask = UIViewAutoresizingNone;
+    self._messageLabel.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
     [self layoutSubviews];
   }
   return self;
 }
 
+- (void)setup {
+  self.backgroundColor = self._tintColor ? self._tintColor : kAlertDefaultBaseColor;
+  self._showDuration = self._showDuration ? self._showDuration : kUIToastWindowShortDuration;
+  self._animationDuration = self._animationDuration ? self._animationDuration : kAlertFadeDuration;
+  CAGradientLayer *gradientLayer = (CAGradientLayer *)self.layer;
+  UIColor *tintColorToUse = self._tintColor ? self._tintColor : kAlertDefaultBaseColor;
+  gradientLayer.colors =
+  [NSArray arrayWithObjects:
+   (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.80].CGColor,
+   (__bridge id)tintColorToUse.CGColor,
+   nil];
+  
+  if (self._lightText) {
+    self._messageLabel.textColor = [UIColor blackColor];
+    self._messageLabel.shadowColor = [UIColor whiteColor];
+  }
+}
+
 #pragma mark - Layout
 - (void)layoutSubviews {
   [super layoutSubviews];
+  [self setup];
   
   CGRect screenRect = get_screen_rect();
-  
   CGSize contraintRect = CGSizeMake(kAlertDefaultWidth - (kAlertDefaultPadding * 2), CGFLOAT_MAX);
   
   CGSize sizeOfLabel = [self._messageLabel.text sizeWithFont:[UIFont systemFontOfSize:[UIFont labelFontSize]] constrainedToSize:contraintRect lineBreakMode:UILineBreakModeWordWrap];
   
-  CGSize sizeOfWindow = CGSizeMake(sizeOfLabel.width + (kAlertDefaultPadding * 2), sizeOfLabel.height + (kAlertDefaultPadding * 2));
+  CGSize sizeOfWindow = CGSizeMake(round(sizeOfLabel.width + (kAlertDefaultPadding * 2)), round(sizeOfLabel.height + (kAlertDefaultPadding * 2)));
   
   self._messageLabel.frame = CGRectMake(0, 0, sizeOfLabel.width, sizeOfLabel.height);
   
@@ -120,14 +142,17 @@ CGRect get_screen_rect() {
   
   self._messageLabel.frame = CGRectMake(kAlertDefaultPadding, kAlertDefaultPadding, self._messageLabel.frame.size.width, self._messageLabel.frame.size.height);
   self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.layer.cornerRadius].CGPath;
+  //TODO: Make layer.locations dynamic based on height. (looks pants otherwise.)
+  //As the toast gets smaller you need to push the second stop down to get more of the white spread.
 }
 
 #pragma mark - Actions
 - (void)show {
   CGRect screenRect = get_screen_rect();
-  [self makeKeyAndVisible];
-  
-  [UIView animateWithDuration:kAlertFadeDuration animations:^(void){
+  UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+  [window.rootViewController.view addSubview:self];
+
+  [UIView animateWithDuration:self._animationDuration animations:^(void){
     switch (self._position) {
       case UIToastWindowPositionTop:
         self.frame = CGRectMake(round(screenRect.size.width/2 - self.frame.size.width/2), self.frame.origin.y + self.frame.size.height + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);
@@ -143,13 +168,13 @@ CGRect get_screen_rect() {
     }
   } completion:^(BOOL finished) {
     [self._dismissTimer invalidate];
-    self._dismissTimer = [NSTimer scheduledTimerWithTimeInterval:self._duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
+    self._dismissTimer = [NSTimer scheduledTimerWithTimeInterval:self._showDuration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
   }];
 }
 
 - (void)dismiss {
   [self._dismissTimer invalidate];
-  [UIView animateWithDuration:kAlertFadeDuration animations:^(void){
+  [UIView animateWithDuration:self._animationDuration animations:^(void){
     switch (self._position) {
       case UIToastWindowPositionTop:
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + kAlertFadePixelAmount, self.frame.size.width, self.frame.size.height);

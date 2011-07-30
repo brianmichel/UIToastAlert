@@ -9,6 +9,7 @@
 #import "UIToastWindowAppDelegate.h"
 
 #import "UIToastWindowViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation UIToastWindowAppDelegate
 
@@ -18,6 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window.layer.borderColor = [[UIColor orangeColor] CGColor];
+  self.window.layer.borderWidth = 3.0f;
     // Override point for customization after application launch.
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
       self.viewController = [[UIToastWindowViewController alloc] initWithNibName:@"UIToastWindowViewController_iPhone" bundle:nil]; 

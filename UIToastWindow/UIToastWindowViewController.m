@@ -45,6 +45,10 @@
   }
   
   UIToastWindow *toast = [[UIToastWindow alloc] initWithMessage:self.textView.text duration:0.5 position:position];
+//  int random = arc4random() % 360;
+//  
+//  toast._tintColor = [UIColor colorWithHue:random * 0.01  saturation:1.0 brightness:1.0 alpha:1.0];
+//  toast._lightText = random < 200 ? YES : NO;
   [toast show];
 }
 
