@@ -30,7 +30,6 @@ Screen Shots
 [Picture Two](http://bit.ly/nOCkf4 "Alert Two")
 
 Here's some videos!
-
 [Video One](http://bit.ly/pANgES "Video One")
 [Video Two](http://bit.ly/pYB5bI "Video Two")
 
